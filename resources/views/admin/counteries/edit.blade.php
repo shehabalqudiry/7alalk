@@ -72,15 +72,28 @@
                                             <div class="form-body">
                                                 <h4 class="form-section"><i class="ft-home"></i> بيانات المنطقة</h4>
                                                 <div class="row">
-                                                    <div class="col-md-12">
+                                                    <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="projectinput1"> الاسم</label>
                                                             <input type="text" id="name"
                                                                 class="form-control"
                                                                 placeholder="  "
-                                                                value="{{$countery -> name}}"
+                                                                value="{{$countery->name}}"
                                                                 name="name">
                                                             @error("name")
+                                                        <span class="text-danger">{{$message}}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="projectinput1"> العملة</label>
+                                                            <input type="text" id="name"
+                                                                class="form-control"
+                                                                placeholder=" "
+                                                                value="{{$countery->currency}}"
+                                                                name="currency">
+                                                            @error("currency")
                                                         <span class="text-danger">{{$message}}</span>
                                                             @enderror
                                                         </div>

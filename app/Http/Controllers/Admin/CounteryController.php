@@ -26,6 +26,7 @@ class CounteryController extends Controller
         $validator = Validator::make($request->all(), [
             'name'     => 'required',
             'photo'    => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'currency' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -42,7 +43,8 @@ class CounteryController extends Controller
 
         Countery::create([
             'name'     => $request->name,
-            'photo'    => $filePath
+            'photo'    => $filePath,
+            'currency' => $request->currency,
         ]);
 
         notify()->success('تم اضافة دولة بنجاح');
@@ -60,6 +62,7 @@ class CounteryController extends Controller
         $validator = Validator::make($request->all(), [
             'name'     => 'required',
             'photo'    => 'required_without:id|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'currency' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -79,6 +82,7 @@ class CounteryController extends Controller
 
         Countery::where('id', $id)->update([
             'name'     => $request->name,
+            'currency' => $request->currency,
         ]);
 
         notify()->success('تم تحديث بيانات الدولة بنجاح');
