@@ -18,7 +18,6 @@ trait GeneralTrait
         ]);
     }
 
-
     public function returnSuccessMessage($msg = "", $errNum = "S000")
     {
         return [

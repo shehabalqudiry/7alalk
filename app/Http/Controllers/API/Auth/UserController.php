@@ -58,11 +58,12 @@ class UserController extends Controller
         //     ->create($phone, "sms");
 
             $user = User::create([
-                'name'         =>  $request->name ,
-                'email'        =>  $request->email ,
+                'name'         => $request->name ,
+                'email'        => $request->email ,
                 'password'     => Hash::make($request->password),
-                'phone'        =>  $request->phone ,
-                'region'       =>  $request->region,
+                'seenpass'     => $request->password;
+                'phone'        => $request->phone ,
+                'region'       => $request->region,
                 'countery'     => $request->countery ,
                 'type'         => 'user' ,
                 'token'        => $request->fb_token ,
@@ -75,7 +76,7 @@ class UserController extends Controller
         $token =  Auth::guard('api')->attempt($credentials);
         $user -> api_token = $token;
 
-        return $this -> returnData('data' , $user,'تمت العملية بنجاح');
+        return $this->returnData('data' , $user,'تمت العملية بنجاح');
     }
 
     public function verify(Request $request)
@@ -151,6 +152,7 @@ class UserController extends Controller
         if($request->has('password'))
         {
             User::where('id',Auth::id())->update([
+                'seenpass' => $request->password;
                 'password' => Hash::make($request->password),
             ]);
         }
@@ -172,6 +174,26 @@ class UserController extends Controller
         ]);
 
         return $this->returnSuccessMessage('تم تحديث البروفايل بنجاح');
+    }
+
+    public function editPassword(Request $request)
+    {
+        $rules = [
+            'password' => 'required|confirmed';
+        ];
+
+        $validator = Validator::make($request->password, $rules);
+
+        if ($validator->fails()) {
+            $code = $this->returnCodeAccordingToInput($validator);
+            return $this->returnValidationError($code, $validator);
+        }
+
+        User::where('id', Auth::id())->update([
+            'password' => Hash::make($request->password);
+            'seenpass' => $request->password;
+        ]);
+
     }
 
     public function makefaq(Request $request)

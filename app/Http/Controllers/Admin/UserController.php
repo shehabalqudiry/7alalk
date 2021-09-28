@@ -122,6 +122,11 @@ class UserController extends Controller
         return redirect()->route('admin.users')->with(["success","تم تحديث بيانات مستخدمين بنجاح"]);
     }
 
+    public function updatePassword(Request $request)
+    {
+        $user = auth()->user();
+        
+    }
 
     public function destroy($id)
     {

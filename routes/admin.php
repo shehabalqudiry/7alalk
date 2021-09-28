@@ -106,6 +106,7 @@ Route::post('/Add-Bank', 'DashboardController@addbank')->name('admin.add.bank');
         Route::post('store','UserController@store') -> name('admin.users.store');
         Route::get('edit/{id}','UserController@edit') -> name('admin.users.edit');
         Route::post('update/{id}','UserController@update') -> name('admin.users.update');
+        // Route::post('update-password/{id}','UserController@updatePassword') -> name('admin.users.updatePassword');
         Route::get('delete/{id}','UserController@destroy') -> name('admin.users.delete');
        // Route::get('changeStatus/{id}','UserController@changeStatus') -> name('admin.users.status');
 
@@ -137,7 +138,7 @@ Route::group(['namespace' => 'Admin', 'middleware' => 'guest:admin'], function (
 /*
 1 - عرض طلبات كشف العيادات في لوحة الادمن
 // 2 - عند اضافة كل دولة ازود انة يدخل سعر العملة بتاعتها بالريال
-3 - اعمل روت انة يقدر يغير الباسورد فقط دا غير تعديل الملف الشخص
+// 3 - اعمل روت انة يقدر يغير الباسورد فقط دا غير تعديل الملف الشخص
 4 - اعمل اضافة عروض ويضيف لمين والمدة
 5 - العيادات
 6 - طلبات التحصين

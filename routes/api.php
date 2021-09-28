@@ -24,6 +24,7 @@ Route::group(['namespace' => 'API\Auth'], function () {
     Route::post('verify-Phone', 'UserController@verify');
     Route::post('Add-Location', 'UserController@addlocation');
     Route::get('Data-Edit-User', 'UserController@dataedituser');
+    Route::post('Edit-Password', 'UserController@editPassword');
     Route::post('Edit-Profile', 'UserController@editprofile');
     Route::get('Make-Faq','UserController@makefaq');
     Route::post('Make-Order-Check','UserController@makeordercheck');
