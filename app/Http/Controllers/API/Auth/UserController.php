@@ -179,7 +179,7 @@ class UserController extends Controller
     public function updatePassword(Request $request)
     {
         $rules = [
-            'password' => 'required|confirmed';
+            'password' => 'required|confirmed',
         ];
 
         $validator = Validator::make($request->password, $rules);
