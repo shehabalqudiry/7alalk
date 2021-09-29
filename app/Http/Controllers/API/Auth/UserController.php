@@ -176,7 +176,7 @@ class UserController extends Controller
         return $this->returnSuccessMessage('تم تحديث البروفايل بنجاح');
     }
 
-    public function editPassword(Request $request)
+    public function updatePassword(Request $request)
     {
         $rules = [
             'password' => 'required|confirmed';
