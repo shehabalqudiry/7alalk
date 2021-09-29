@@ -53,8 +53,8 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @isset($counteries )
-                                            @foreach($counteries as $region )
+                                            @isset($countries )
+                                            @foreach($countries as $region )
                                             <tr>
                                                 <td>{{$region->name}}</td>
                                                 <td>{{$region->currency}}</td>
@@ -63,11 +63,11 @@
                                                 </td>
                                                 <td>
                                                     <div class="btn-group" role="group" aria-label="Basic example">
-                                                        <a href="{{route('admin.counteries.edit',$region -> id)}}"
+                                                        <a href="{{route('admin.countries.edit',$region -> id)}}"
                                                             class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1">تعديل</a>
 
 
-                                                        {{-- <a href="{{route('admin.counteries.delete',$region -> id)}}"
+                                                        {{-- <a href="{{route('admin.countries.delete',$region -> id)}}"
                                                         class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1
                                                         mb-1">حذف</a> --}}
 
@@ -81,7 +81,7 @@
                                         </tbody>
                                     </table>
                                     <div class="justify-content-center d-flex">
-                                        {{  $counteries -> links() }}
+                                        {{  $countries -> links() }}
                                     </div>
                                 </div>
                             </div>

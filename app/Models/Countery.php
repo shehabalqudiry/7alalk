@@ -9,6 +9,6 @@ class Countery extends Model
     protected $table = 'countries';
 
     protected $fillable = [
-        'id','name','photo','created_at','updated_at',
+        'id','name','photo', 'currency','created_at','updated_at',
     ];
 }

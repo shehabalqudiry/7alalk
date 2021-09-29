@@ -12,13 +12,13 @@ class CounteryController extends Controller
 {
     public function index()
     {
-        $counteries = Countery::paginate(PAGINATION_COUNT);
-        return view('admin.counteries.index',compact('counteries'));
+        $countries = Countery::paginate(PAGINATION_COUNT);
+        return view('admin.countries.index',compact('countries'));
     }
 
     public function create()
     {
-        return view('admin.counteries.create');
+        return view('admin.countries.create');
     }
 
     public function store(Request $request)
@@ -31,14 +31,14 @@ class CounteryController extends Controller
 
         if ($validator->fails()) {
             notify()->error('حدث خطا ما برجاء المحاوله مرة اخري');
-            return redirect( route('admin.counteries.create'))
+            return redirect( route('admin.countries.create'))
                         ->withErrors($validator)
                         ->withInput();
         }
 
         $filePath = '';
         if ($request->has('photo')) {
-            $filePath = uploadImage('counteries', $request->photo);
+            $filePath = uploadImage('countries', $request->photo);
         }
 
         Countery::create([
@@ -48,13 +48,13 @@ class CounteryController extends Controller
         ]);
 
         notify()->success('تم اضافة دولة بنجاح');
-        return redirect()->route('admin.counteries')->with(["success","تم اضافة دولة بنجاح"]);
+        return redirect()->route('admin.countries')->with(["success","تم اضافة دولة بنجاح"]);
     }
 
     public function edit($id)
     {
         $countery = Countery::find($id);
-        return view('admin.counteries.edit',compact('countery'));
+        return view('admin.countries.edit',compact('countery'));
     }
 
     public function update(Request $request , $id)
@@ -67,13 +67,13 @@ class CounteryController extends Controller
 
         if ($validator->fails()) {
             notify()->error('حدث خطا ما برجاء المحاوله مرة اخري');
-            return redirect( route('admin.counteries.edit',$id))
+            return redirect( route('admin.countries.edit',$id))
                         ->withErrors($validator)
                         ->withInput();
         }
 
         if ($request->has('photo')) {
-            $filePath = uploadImage('counteries', $request->photo);
+            $filePath = uploadImage('countries', $request->photo);
             Countery::where('id',$id)
                 ->update([
                     'photo' => $filePath,
@@ -85,7 +85,7 @@ class CounteryController extends Controller
             'currency' => $request->currency,
         ]);
 
-        notify()->success('تم تحديث بيانات الدولة بنجاح');
-        return redirect()->route('admin.counteries')->with(["success","تم تحديث بيانات الدولة بنجاح"]);
+
+        return redirect()->route('admin.countries')->with(["success","تم تحديث بيانات الدولة بنجاح"]);
     }
 }

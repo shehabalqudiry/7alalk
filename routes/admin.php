@@ -69,12 +69,12 @@ Route::post('/Add-Bank', 'DashboardController@addbank')->name('admin.add.bank');
 ######################### End countries Routes  ########################
     ######################### Begin regions Routes ########################
     Route::group(['prefix' => 'regions'], function () {
-        Route::get('/','RegionConroller@index') -> name('admin.regions');
-        Route::get('create','RegionConroller@create') -> name('admin.regions.create');
-        Route::post('store','RegionConroller@store') -> name('admin.regions.store');
-        Route::get('edit/{id}','RegionConroller@edit') -> name('admin.regions.edit');
-        Route::post('update/{id}','RegionConroller@update') -> name('admin.regions.update');
-        //Route::get('delete/{id}','RegionConroller@destroy') -> name('admin.regions.delete');
+        Route::get('/','RegionController@index') -> name('admin.regions');
+        Route::get('create','RegionController@create') -> name('admin.regions.create');
+        Route::post('store','RegionController@store') -> name('admin.regions.store');
+        Route::get('edit/{id}','RegionController@edit') -> name('admin.regions.edit');
+        Route::post('update/{id}','RegionController@update') -> name('admin.regions.update');
+        //Route::get('delete/{id}','RegionController@destroy') -> name('admin.regions.delete');
     });
     ######################### End regions Routes  ########################
     ######################### Begin faqs Routes ########################
@@ -125,6 +125,21 @@ Route::post('/Add-Bank', 'DashboardController@addbank')->name('admin.add.bank');
     });
     ######################### End products Routes  ########################
 
+    ######################### Clinic Cats Routes  ########################
+    // Route::group(['prefix' => 'clinic_cats'], function () {
+    //     Route::get('/','ClinicCatController@index') -> name('admin.clinic_cats.index');
+    //     Route::get('create','ClinicCatController@create') -> name('admin.clinic_cats.create');
+    //     Route::post('store','ClinicCatController@store') -> name('admin.clinic_cats.store');
+    //     Route::get('edit/{id}','ClinicCatController@edit') -> name('admin.clinic_cats.edit');
+    //     Route::post('update/{id}','ClinicCatController@update') -> name('admin.clinic_cats.update');
+    //     Route::get('delete/{id}','ClinicCatController@destroy') -> name('admin.clinic_cats.delete');
+    // });
+    ######################### End Clinic Cats Routes  ########################
+    Route::name('admin.')->group(function() {
+        Route::resource('clinic_cats', 'ClinicCatController');
+        Route::resource('clinics', 'ClinicController');
+    });
+
 });
 
 Route::group(['namespace' => 'Admin', 'middleware' => 'guest:admin'], function () {
@@ -140,7 +155,7 @@ Route::group(['namespace' => 'Admin', 'middleware' => 'guest:admin'], function (
 // 2 - عند اضافة كل دولة ازود انة يدخل سعر العملة بتاعتها بالريال
 // 3 - اعمل روت انة يقدر يغير الباسورد فقط دا غير تعديل الملف الشخص
 4 - اعمل اضافة عروض ويضيف لمين والمدة
-5 - العيادات
+// 5 - العيادات
 6 - طلبات التحصين
 7 - الاضافة الي سلة الشراء والمفضلة
 8 - تقييم المنتج والاسئلة والاجابات وافضل اجابة ولايك وديس لايك للاجابات
