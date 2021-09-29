@@ -53,6 +53,36 @@
                             </li>
                         </ul>
                     </li>
+                <li class="nav-item">
+                    <a href=""><i class="la la-male"></i>
+                            <span class="menu-title" data-i18n="nav.dash.main">تخصصات العيادات  </span>
+                            <span
+                                class="badge badge badge-dark  badge-pill float-right mr-2">{{App\Models\ClinicCat::count()}}</span>
+                        </a>
+                        <ul class="menu-content">
+                            <li><a class="menu-item" href="{{route('admin.clinic_cats.index')}}"
+                                data-i18n="nav.dash.ecommerce"> عرض الكل  </a>
+                            </li>
+                            <li><a class="menu-item" href="{{route('admin.clinic_cats.create')}}"
+                                data-i18n="nav.dash.ecommerce">اضافة تخصص جديد</a>
+                            </li>
+                        </ul>
+                    </li>
+                <li class="nav-item">
+                    <a href=""><i class="la la-male"></i>
+                            <span class="menu-title" data-i18n="nav.dash.main"> العيادات </span>
+                            <span
+                                class="badge badge badge-dark  badge-pill float-right mr-2">{{App\Models\Clinic::count()}}</span>
+                        </a>
+                        <ul class="menu-content">
+                            <li><a class="menu-item" href="{{route('admin.clinics.index')}}"
+                                data-i18n="nav.dash.ecommerce"> عرض الكل  </a>
+                            </li>
+                            <li><a class="menu-item" href="{{route('admin.clinics.create')}}"
+                                data-i18n="nav.dash.ecommerce">اضافة عيادة جديد</a>
+                            </li>
+                        </ul>
+                    </li>
 
             <li class="nav-item">
             <a href=""><i class="la la-life-bouy"></i>
