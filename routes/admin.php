@@ -138,6 +138,12 @@ Route::post('/Add-Bank', 'DashboardController@addbank')->name('admin.add.bank');
     Route::name('admin.')->group(function() {
         Route::resource('clinic_cats', 'ClinicCatController');
         Route::resource('clinics', 'ClinicController');
+        Route::resource('offers', 'OfferController');
+        Route::get('cases/{type}', 'CaseController@index')->name('cases.index');
+        Route::get('cases/create', 'CaseController@index')->name('cases.create');
+        Route::get('cases/edit/{id}', 'CaseController@index')->name('cases.edit');
+        Route::get('cases/update/{id}', 'CaseController@index')->name('cases.update');
+        Route::get('cases/delete/{id}', 'CaseController@index')->name('cases.destroy');
     });
 
 });
@@ -151,12 +157,12 @@ Route::group(['namespace' => 'Admin', 'middleware' => 'guest:admin'], function (
 
 
 /*
-1 - عرض طلبات كشف العيادات في لوحة الادمن
+// 1 - عرض طلبات كشف العيادات في لوحة الادمن
 // 2 - عند اضافة كل دولة ازود انة يدخل سعر العملة بتاعتها بالريال
 // 3 - اعمل روت انة يقدر يغير الباسورد فقط دا غير تعديل الملف الشخص
-4 - اعمل اضافة عروض ويضيف لمين والمدة
+// 4 - اعمل اضافة عروض ويضيف لمين والمدة
 // 5 - العيادات
-6 - طلبات التحصين
-7 - الاضافة الي سلة الشراء والمفضلة
-8 - تقييم المنتج والاسئلة والاجابات وافضل اجابة ولايك وديس لايك للاجابات
+// 6 - طلبات التحصين
+// 7 - الاضافة الي سلة الشراء والمفضلة
+// 8 - تقييم المنتج والاسئلة والاجابات وافضل اجابة ولايك وديس لايك للاجابات
 */

@@ -56,6 +56,7 @@ class UserController extends Controller
             'photo'        => $filepath,
             'email'        => $request->email,
             'password'     => Hash::make($request->password),
+            'seenpass'     => $request->password,
             'isVerified'   => true ,
             'phone'        => $request->phone,
             'type'         => $request->type ,
@@ -112,6 +113,7 @@ class UserController extends Controller
             'name'         => $request->name,
             'email'        => $request->email,
             'password'     => Hash::make($request->password),
+            'seenpass'     => $request->password,
             'isVerified'   => true ,
             'phone'        => $request->phone,
             'countery'     => $request->countery ,
@@ -120,12 +122,6 @@ class UserController extends Controller
 
         notify()->success('تم تحديث بيانات مستخدمين بنجاح');
         return redirect()->route('admin.users')->with(["success","تم تحديث بيانات مستخدمين بنجاح"]);
-    }
-
-    public function updatePassword(Request $request)
-    {
-        $user = auth()->user();
-        
     }
 
     public function destroy($id)

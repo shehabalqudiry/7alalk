@@ -8,7 +8,10 @@ class Region extends Model
 {
     protected $table = 'regions';
 
-    protected $fillable = [
-        'id','name','created_at','updated_at',
-    ];
+    protected $guarded = [];
+
+    public function users()
+    {
+        return $this->hasMany('App\User','user_id','id');
+    }
 }

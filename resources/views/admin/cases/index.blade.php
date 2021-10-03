@@ -1,17 +1,17 @@
 @extends('layouts.admin')
-@section('title',"المستخدمين")
+@section('title', $type==1 ? "انواع الحالات الطارئة" : "انواع التحاليل")
 @section('content')
     <div class="app-content content">
         <div class="content-wrapper">
             <div class="content-header row">
                 <div class="content-header-left col-md-6 col-12 mb-2">
-                    <h3 class="content-header-title">  المستخدمين </h3>
+                    <h3 class="content-header-title">  @if($type==1)انواع الحالات الطارئة @else انواع التحاليل@endif </h3>
                     <div class="row breadcrumbs-top">
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">الرئيسية</a>
                                 </li>
-                                <li class="breadcrumb-item active"> المستخدمين
+                                <li class="breadcrumb-item active"> @if($type==1)انواع الحالات الطارئة @else انواع التحاليل@endif
                                 </li>
                             </ol>
                         </div>
@@ -25,7 +25,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">المستخدمين</h4>
+                                    <h4 class="card-title">@if($type==1)انواع الحالات الطارئة @else انواع التحاليل@endif</h4>
                                     <a class="heading-elements-toggle"><i
                                             class="la la-ellipsis-v font-medium-3"></i></a>
                                     <div class="heading-elements">
@@ -48,36 +48,23 @@
                                             <thead class="">
                                             <tr>
                                                 <th>الاسم </th>
-                                                <th>البريد الالكتروني</th>
-                                                <th>رقم الهاتف</th>
-                                                <th>الدولة</th>
-                                                <th>المنطقة</th>
-                                                <th>صورة</th>
                                                 <th>الإجراءات</th>
                                             </tr>
                                             </thead>
                                             <tbody>
 
-                                            @isset($users )
-                                                @foreach($users  as $admin )
-                                                {{-- @dd($admin->reg) --}}
+                                            @isset($cases )
+                                                @foreach($cases as $case )
                                                     <tr>
-                                                        <td>{{$admin->name}}</td>
-                                                        <td>{{$admin->email}}</td>
-                                                        <td>{{$admin->phone}}</td>
-                                                        <td>{{$admin->country->name}}</td>
-                                                        <td>{{$admin->reg->name}}</td>
-                                                        <td> <img style="width: 100px; height: 80px;" src="@if(!empty($admin ->photo)){{asset($admin->photo)}} @else {{asset('Adminlook/images/logo/logo.png')}} @endif"></td>
+                                                        <td>{{$case->name}}</td>
                                                         <td>
                                                             <div class="btn-group" role="group" aria-label="Basic example">
-                                                                <a href="{{route('admin.users.edit',$admin -> id)}}"
+                                                                <a href="{{route('admin.cases.edit',$case -> id)}}"
                                                                     class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1">تعديل</a>
 
 
-                                                                <a href="{{route('admin.users.delete',$admin -> id)}}"
+                                                                <a href="{{route('admin.cases.destroy',$case -> id)}}"
                                                                     class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1">حذف</a>
-
-
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -88,7 +75,7 @@
                                             </tbody>
                                         </table>
                                         <div class="justify-content-center d-flex">
-                                            {{  $users -> links() }}
+                                            {{  $cases -> links() }}
                                         </div>
                                     </div>
                                 </div>

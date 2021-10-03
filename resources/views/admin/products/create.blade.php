@@ -101,8 +101,8 @@
                                                                 <div class="form-group">
                                                                     <label for="projectinput1"> اختر القسم الفرعي </label>
                                                                     <select name="subcat_id" class="form-control subcat" id="subcat">
-                                                                        @foreach ($subcats as $cat)
-                                                                            <option value="{{$cat->id}}">{{$cat->name}}</option>
+                                                                        @foreach ($subcats as $subcat)
+                                                                            <option value="{{$subcat->id}}">{{$subcat->name}}</option>
                                                                         @endforeach
                                                                     </select>
                                                                     @error("subcat_id")
@@ -235,7 +235,7 @@
         }
     });
 
-    $(document).on( 'click','.form-control.maincat', function(e) {
+    $(document).on('click','.form-control.maincat', function(e) {
         e.preventDefault();
         var cat = $('.form-control.maincat').val();
     /**Ajax code**/

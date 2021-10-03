@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use App\Models\OrderAsk;
 use App\Models\Ordercheck;
+use App\Models\ClinicOrder;
 use App\Models\OrderFaq;
 use Illuminate\Http\Request;
 use App\Traits\GeneralTrait;
@@ -27,8 +28,8 @@ class UserController extends Controller
             'name'      => 'required|unique:users',
             'email'     => 'required|unique:users' ,
             'phone'     => 'required|unique:users' ,
-            'countery' => 'required|date' ,
-            'region' => 'required' ,
+            'countery'  => 'required' ,
+            'region'    => 'required' ,
             'password'  => 'required' ,
             'fb_token'  => 'required' ,
         ];
@@ -61,7 +62,7 @@ class UserController extends Controller
                 'name'         => $request->name ,
                 'email'        => $request->email ,
                 'password'     => Hash::make($request->password),
-                'seenpass'     => $request->password;
+                'seenpass'     => $request->password,
                 'phone'        => $request->phone ,
                 'region'       => $request->region,
                 'countery'     => $request->countery ,
@@ -152,7 +153,7 @@ class UserController extends Controller
         if($request->has('password'))
         {
             User::where('id',Auth::id())->update([
-                'seenpass' => $request->password;
+                'seenpass' => $request->password,
                 'password' => Hash::make($request->password),
             ]);
         }
@@ -190,8 +191,8 @@ class UserController extends Controller
         }
 
         User::where('id', Auth::id())->update([
-            'password' => Hash::make($request->password);
-            'seenpass' => $request->password;
+            'password' => Hash::make($request->password),
+            'seenpass' => $request->password,
         ]);
 
     }
@@ -261,6 +262,70 @@ class UserController extends Controller
             'lang'          => $request->lang,
         ]);
         return $this->returnSuccessMessage('تم بنجاح');
+    }
+
+    public function makeClinicOrder(Request $request)
+    {
+        $rules = [
+            'name'           => 'nullable',
+            'phone'          => 'nullable',
+            'case_id'        => 'required',
+            'animal_id'      => 'required',
+            'region_id'      => 'required',
+            'number'         => 'required',
+            'time'           => 'required',
+            'address'        => 'required',
+            'descibe'        => 'nullable',
+            'lat'            => 'nullable',
+            'lang'           => 'nullable',
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            $code = $this->returnCodeAccordingToInput($validator);
+            return $this->returnValidationError($code, $validator);
+        }
+        $order = ClinicOrder::where('user_id', Auth::id())->whereDate('created_at',date('Y-m-d'))->first();
+        if($order){
+            return $this->returnError('لقد قمت اليوم بالارسال من قبل','502');
+        }
+
+        ClinicOrder::create([
+            'name'          => $request->name,
+            'phone'         => $request->phone,
+            'case_id'       => $request->case_id,
+            'animal_id'     => $request->animal_id,
+            'number'        => $request->number,
+            'region_id'     => $request->region_id,
+            'time'          => $request->time,
+            'address'       => $request->address,
+            'descibe'       => $request->descibe,
+            'user_id'       => Auth::id() ,
+            'lat'           => $request->lat,
+            'lang'          => $request->lang,
+        ]);
+        return $this->returnSuccessMessage('تم بنجاح');
+    }
+
+    public function addTofav(Request $request) // Add To Favirote
+    {
+        auth()->user()->favoriteProducts()->create([
+            'product_id'    => $request->product_id,
+        ]);
+        return $this->returnSuccessMessage('تمت الاضافة الي المفضلة');
+    }
+
+    public function removeFromfav(Request $request) // Remove From Favirote
+    {
+        auth()->user()->favoriteProducts()->where('product_id', $request->product_id)->delete();
+        return $this->returnSuccessMessage('تمت الازالة الي المفضلة');
+    }
+
+    public function getOffers() // Remove From Favirote
+    {
+        $offers = auth()->user()->offers()->get();
+        return $this->returnData('offers', $offers, 'تمت العملية بنجاح');
     }
 
 }

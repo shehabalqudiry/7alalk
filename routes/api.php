@@ -24,10 +24,14 @@ Route::group(['namespace' => 'API\Auth'], function () {
     Route::post('verify-Phone', 'UserController@verify');
     Route::post('Add-Location', 'UserController@addlocation');
     Route::get('Data-Edit-User', 'UserController@dataedituser');
-    Route::post('Edit-Password', 'UserController@editPassword');
+    Route::post('Update-Password', 'UserController@updatePassword'); // Password Update
     Route::post('Edit-Profile', 'UserController@editprofile');
     Route::get('Make-Faq','UserController@makefaq');
     Route::post('Make-Order-Check','UserController@makeordercheck');
+    Route::post('Make-Clinic-Order','UserController@makeClinicOrder');  // Clinic Orders
+    Route::post('add-to-favorite','UserController@addTofav');  // Add Products To Favorites
+    Route::post('remove-from-favorite','UserController@makeClinicOrder');  // Remove Products From Favorites
+    Route::get('get-user-offers','UserController@getOffers');  // Get Auth User Offers
 });
 
 ####################APIS#######################
@@ -39,4 +43,7 @@ Route::group(['namespace' => 'API'], function () {
     Route::get('Get-Cat','ApiController@cats');
     Route::get('Get-SubCat/{id}','ApiController@subcats');
     Route::get('Faqs','ApiController@faqs');
+    Route::get('ClinicCats','ApiController@clinic_cats'); // Get All Categories Of Clinics
+    Route::get('Clinics','ApiController@clinics'); // Get All Clinics
+    Route::get('Clinic/{id}','ApiController@clinic'); // Get All Clinics
 });

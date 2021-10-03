@@ -2,6 +2,9 @@
 
 namespace App;
 
+use App\Models\Countery;
+use App\Models\Offer;
+use App\Models\Region;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -16,10 +19,7 @@ class User extends Authenticatable implements JWTSubject
      *
      * @var array
      */
-    protected $fillable = [
-        'name', 'email','countery','region','phone','isVerified','photo','type'
-        , 'password','token','address','lat','lang'
-    ];
+    protected $guarded = [];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -39,7 +39,7 @@ class User extends Authenticatable implements JWTSubject
         'email_verified_at' => 'datetime',
     ];
 
-        public function getJWTIdentifier()
+    public function getJWTIdentifier()
     {
         return $this->getKey();
     }
@@ -55,13 +55,28 @@ class User extends Authenticatable implements JWTSubject
     }
 
     ///////////////////////////////////Realtions
-    public function region()
+    public function reg() //Chang Name Conflict with region column in users table
     {
-        return $this->belongsTo('App\Models\Region','region','id');
+        return $this->belongsTo(Region::class, 'region', 'id');
     }
 
-    public function countery()
+    public function country()
     {
-        return $this->belongsTo('App\Models\Countery','countery','id');
+        return $this->belongsTo(Countery::class, 'countery', 'id');
+    }
+
+    public function offers()
+    {
+        return $this->belongsToMany(Offer::class);
+    }
+
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'favorites');
+    }
+
+    public function favoriteProducts()
+    {
+        return $this->belongsToMany(Product::class, 'favorites');
     }
 }

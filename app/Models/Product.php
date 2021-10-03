@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
@@ -21,5 +22,10 @@ class Product extends Model
     public function subcat()
     {
         return $this->belongsTo('App\Models\Subcat','subcat_id','id');
+    }
+
+    public function userLike()
+    {
+        return $this->belongsToMany(User::class);
     }
 }

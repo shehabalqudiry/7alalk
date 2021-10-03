@@ -5,6 +5,8 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Animal;
 use App\Models\Cat;
+use App\Models\Clinic;
+use App\Models\ClinicCat;
 use Illuminate\Http\Request;
 use App\Traits\GeneralTrait;
 use Twilio\Rest\Client;
@@ -32,7 +34,7 @@ class ApiController extends Controller
             ];
 
             $validator = Validator::make($request->all(), $rules, [
-                'email.required' => 'حقل الاسم مطلوب',
+                'email.required' => 'حقل البريد الالكتروني مطلوب',
                 'password.required' => 'حقل كلمة السر مطلوب',
             ]);
 
@@ -62,7 +64,7 @@ class ApiController extends Controller
 
     public function Countries()
     {
-        $Countries = Region::get();
+        $Countries = Countery::get();
         return $this->returnData('Countries', $Countries, 'تمت العملية بنجاح');
     }
 
@@ -88,5 +90,35 @@ class ApiController extends Controller
     {
         $faqs = Faq::get();
         return $this->returnData('faqs', $faqs, 'تمت العملية بنجاح');
+    }
+
+    public function clinic_cats()
+    {
+        $clinic_cats = ClinicCat::get();
+        return $this->returnData('clinic_cats', $clinic_cats, 'تمت العملية بنجاح');
+    }
+
+    public function getCatClinics($cat_id)
+    {
+        $CatClinics = Clinic::where('clinic_cat_id', $cat_id)->get();
+        return $this->returnData('clinic_cats', $CatClinics, 'تمت العملية بنجاح');
+    }
+
+    public function getRegionClinics($region_id)
+    {
+        $CatClinics = Clinic::where('region_id', $region_id)->get();
+        return $this->returnData('clinic_cats', $CatClinics, 'تمت العملية بنجاح');
+    }
+
+    public function clinics()
+    {
+        $clinics = Clinic::get();
+        return $this->returnData('clinics', $clinics, 'تمت العملية بنجاح');
+    }
+
+    public function clinic($id)
+    {
+        $clinic = Clinic::find($id);
+        return $this->returnData('clinic', $clinic, 'تمت العملية بنجاح');
     }
 }

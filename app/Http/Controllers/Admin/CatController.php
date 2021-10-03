@@ -84,7 +84,7 @@ class CatController extends Controller
             if( $stat->cat_id != $request->cat){
                 return response()->json('<option >لاتوجد بيانات</option>') ;
             }
-            $data[] = '<option  value="'.$stat->id.'">'. $stat->name_ar.'</option>';
+            $data[] = '<option  value="'.$stat->id.'">'. $stat->name .'</option>';
         }
         return response()->json(["data" => $data]) ;
     }

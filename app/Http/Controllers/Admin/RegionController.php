@@ -8,7 +8,7 @@ use App\Models\Region;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
-class RegionConroller extends Controller
+class RegionController extends Controller
 {
     public function index()
     {
