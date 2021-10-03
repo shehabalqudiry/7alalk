@@ -26,7 +26,8 @@ class SubCatController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name'     => 'required',
+            'name_ar'     => 'required',
+            'name_en'     => 'required',
             'cat_id'   => 'required' ,
             'photo'    => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
@@ -45,9 +46,9 @@ class SubCatController extends Controller
 
 
         Subcat::create([
-            'name'     => $request->name,
-            'cat_id'     => $request->cat_id  ,
-            'photo'     => $filePath  ,
+            'name'     => ['en' => $request->name_en, 'ar' => $request->name_ar],
+            'cat_id'     => $request->cat_id,
+            'photo'     => $filePath,
         ]);
 
         notify()->success('تم اضافة بنجاح');
@@ -64,7 +65,8 @@ class SubCatController extends Controller
     public function update(Request $request , $id)
     {
         $validator = Validator::make($request->all(), [
-            'name'     => 'required',
+            'name_ar'  => 'required',
+            'name_en'  => 'required',
             'cat_id'   => 'required' ,
             'photo'    => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
@@ -85,7 +87,7 @@ class SubCatController extends Controller
         }
 
         Subcat::where('id', $id)->update([
-            'name'     => $request->name,
+            'name'       => ['en' => $request->name_en, 'ar' => $request->name_ar],
             'cat_id'     => $request->cat_id  ,
         ]);
 

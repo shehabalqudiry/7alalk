@@ -25,8 +25,9 @@ class CatController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name'     => 'required',
-            'type'     => 'required',
+            'name_ar'     => 'required',
+            'name_en'     => 'required',
+            'type'        => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -37,7 +38,7 @@ class CatController extends Controller
         }
 
         Cat::create([
-            'name'     => $request->name,
+            'name'     => ['en' => $request->name_en, 'ar' => $request->name_ar],
             'type'     => $request->type,
         ]);
 
@@ -54,7 +55,8 @@ class CatController extends Controller
     public function update(Request $request , $id)
     {
         $validator = Validator::make($request->all(), [
-            'name'     => 'required',
+            'name_ar'     => 'required',
+            'name_en'     => 'required',
             'type'     => 'required',
         ]);
 
@@ -66,7 +68,7 @@ class CatController extends Controller
         }
 
         Cat::where('id', $id)->update([
-            'name'     => $request->name,
+            'name'     => ['en' => $request->name_en, 'ar' => $request->name_ar],
             'type'     => $request->type,
         ]);
 

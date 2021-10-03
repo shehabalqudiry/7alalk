@@ -121,4 +121,10 @@ class ApiController extends Controller
         $clinic = Clinic::find($id);
         return $this->returnData('clinic', $clinic, 'تمت العملية بنجاح');
     }
+    
+    public function langs()
+    {
+        $langs = config('translatable.lang');
+        return $this->returnData('langs', $langs, 'تمت العملية بنجاح');
+    }
 }

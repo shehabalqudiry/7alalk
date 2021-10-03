@@ -53,11 +53,23 @@
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label for="projectinput1"> الاسم </label>
-                                                                    <input type="text" value="" id="name"
+                                                                    <input type="text" value="" id="name_ar"
                                                                         class="form-control"
                                                                         placeholder="  "
-                                                                        name="name">
-                                                                    @error("name")
+                                                                        name="name_ar">
+                                                                    @error("name_ar")
+                                                                <span class="text-danger">{{$message}}</span>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="projectinput1"> الاسم بالانجليزية </label>
+                                                                    <input type="text" value="" id="name_en"
+                                                                        class="form-control"
+                                                                        placeholder="  "
+                                                                        name="name_en">
+                                                                    @error("name_en")
                                                                 <span class="text-danger">{{$message}}</span>
                                                                     @enderror
                                                                 </div>

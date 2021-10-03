@@ -37,6 +37,7 @@ Route::group(['namespace' => 'API\Auth'], function () {
 ####################APIS#######################
 Route::group(['namespace' => 'API'], function () {
     Route::post('login','ApiController@logins');
+    Route::get('langs','ApiController@langs');
     Route::get('Get-Regions','ApiController@regions');
     Route::get('Get-Countries','ApiController@Countries');
     Route::get('Get-Animals','ApiController@animals');

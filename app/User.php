@@ -67,7 +67,7 @@ class User extends Authenticatable implements JWTSubject
 
     public function offers()
     {
-        return $this->belongsToMany(Offer::class);
+        return $this->belongsToMany(Offer::class, 'offer_user', 'user_id', 'offer_id');
     }
 
     public function products()
@@ -77,6 +77,6 @@ class User extends Authenticatable implements JWTSubject
 
     public function favoriteProducts()
     {
-        return $this->belongsToMany(Product::class, 'favorites');
+        return $this->belongsToMany(Product::class, 'favorites', 'user_id', 'product_id');
     }
 }
