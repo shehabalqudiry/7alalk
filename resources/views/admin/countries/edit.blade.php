@@ -75,33 +75,32 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="projectinput1"> الاسم</label>
-                                                            <input type="text" id="name"
+                                                            <input type="text" id="name_ar"
                                                                 class="form-control"
                                                                 placeholder="  "
-                                                                value="{{$countery->name}}"
-                                                                name="name">
-                                                            @error("name")
+                                                                value="{{$countery->getTranslation('name', 'ar')}}"
+                                                                name="name_ar">
+                                                            @error("name_ar")
                                                         <span class="text-danger">{{$message}}</span>
                                                             @enderror
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="projectinput1"> العملة</label>
-                                                            <input type="text" id="name"
+                                                            <label for="projectinput1"> الاسم بالانجليزية</label>
+                                                            <input type="text" id="name_en"
                                                                 class="form-control"
-                                                                placeholder=" "
-                                                                value="{{$countery->currency}}"
-                                                                name="currency">
-                                                            @error("currency")
+                                                                placeholder="  "
+                                                                value="{{$countery->getTranslation('name', 'en')}}"
+                                                                name="name_en">
+                                                            @error("name_en")
                                                         <span class="text-danger">{{$message}}</span>
                                                             @enderror
                                                         </div>
                                                     </div>
+                                                    
                                                 </div>
                                             </div>
-
-
                                             <div class="form-actions">
                                                 <button type="button" class="btn btn-warning mr-1"
                                                         onclick="history.back();">

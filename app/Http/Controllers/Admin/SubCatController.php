@@ -88,7 +88,7 @@ class SubCatController extends Controller
 
         Subcat::where('id', $id)->update([
             'name'       => ['en' => $request->name_en, 'ar' => $request->name_ar],
-            'cat_id'     => $request->cat_id  ,
+            'cat_id'     => $request->cat_id,
         ]);
 
         notify()->success('تم تحديث بيانات بنجاح');

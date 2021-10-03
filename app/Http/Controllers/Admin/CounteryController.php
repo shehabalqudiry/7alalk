@@ -24,7 +24,8 @@ class CounteryController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name'     => 'required',
+            'name_en'     => 'required',
+            'name_ar'     => 'required',
             'photo'    => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             
         ]);
@@ -42,7 +43,7 @@ class CounteryController extends Controller
         }
 
         Countery::create([
-            'name'     => $request->name,
+            'name'     => ['en' => $request->name_en, 'ar' => $request->name_ar],
             'photo'    => $filePath,
         ]);
 
@@ -59,7 +60,8 @@ class CounteryController extends Controller
     public function update(Request $request , $id)
     {
         $validator = Validator::make($request->all(), [
-            'name'     => 'required',
+            'name_en'     => 'required',
+            'name_ar'     => 'required',
             'photo'    => 'required_without:id|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             
         ]);
@@ -80,7 +82,7 @@ class CounteryController extends Controller
         }
 
         Countery::where('id', $id)->update([
-            'name'     => $request->name,
+            'name'     => ['en' => $request->name_en, 'ar' => $request->name_ar],
         ]);
 
 
