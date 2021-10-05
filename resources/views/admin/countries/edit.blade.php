@@ -94,7 +94,7 @@
                                                                 value="{{$countery->getTranslation('name', 'en')}}"
                                                                 name="name_en">
                                                             @error("name_en")
-                                                        <span class="text-danger">{{$message}}</span>
+                                                            <span class="text-danger">{{$message}}</span>
                                                             @enderror
                                                         </div>
                                                     </div>

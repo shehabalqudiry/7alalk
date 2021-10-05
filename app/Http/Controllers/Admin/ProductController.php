@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Cat;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Review;
 use App\Models\Subcat;
 use Illuminate\Support\Facades\Validator;
 
@@ -16,6 +17,19 @@ class ProductController extends Controller
         $products = Product::paginate(PAGINATION_COUNT);
         return view('admin.products.index', compact('products'));
     }
+    // Reviews
+    public function reviews()
+    {
+        $reviews = Review::paginate(PAGINATION_COUNT);
+        return view('admin.products.reviews', compact('reviews'));
+    }
+
+    public function deleteReview($id)
+    {
+        Review::find($id)->delete();
+        return redirect()->route('admin.products.reviews');
+    }
+    // End Reviews
 
     public function create()
     {
@@ -27,10 +41,14 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'name_*'        => 'required',
-            'short_desc_*'  => 'required',
-            'long_desc_*'   => 'required',
-            'how_used_*'    => 'required',
+            'name_ar'        => 'required',
+            'name_en'        => 'required',
+            'short_desc_ar'  => 'required',
+            'short_desc_en'  => 'required',
+            'long_desc_ar'   => 'required',
+            'long_desc_en'   => 'required',
+            'how_used_ar'    => 'required',
+            'how_used_en'    => 'required',
             'cat_id'        => 'required',
             'subcat_id'     => 'required',
             'amount'        => 'required',

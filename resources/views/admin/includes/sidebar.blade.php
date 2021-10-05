@@ -77,7 +77,7 @@
                             الحالات </a><span
                         class="badge badge badge-dark  badge-pill float-right mr-2"></span>
                     </li>
-                    <li><a class="menu-item" href="{{route('admin.cases.create')}}"
+                    <li><a class="menu-item" href="{{route('admin.cases.create', 1)}}"
                             data-i18n="nav.dash.ecommerce">اضافة حالة</a>
                     </li>
                     <li><a class="menu-item" href="{{route('admin.cases.index',2)}}" data-i18n="nav.dash.ecommerce"> عرض
@@ -85,7 +85,7 @@
                         class="badge badge badge-dark  badge-pill float-right mr-2"></span>
                     </li>
                     <li>
-                    <a class="menu-item" href="{{route('admin.cases.create')}}" data-i18n="nav.dash.ecommerce">اضافة تحليل</a>
+                    <a class="menu-item" href="{{route('admin.cases.create', 2)}}" data-i18n="nav.dash.ecommerce">اضافة تحليل</a>
                     </li>
                 </ul>
             </li>
@@ -169,6 +169,22 @@
                 </ul>
             </li>
 
+            <li class="nav-item">
+                <a href=""><i class="la la-life-bouy"></i>
+                    <span class="menu-title" data-i18n="nav.dash.main">الخدمات </span>
+                    <span
+                        class="badge badge badge-primary  badge-pill float-right mr-2">{{App\Models\Service::count()}}</span>
+                </a>
+                <ul class="menu-content">
+                    <li><a class="menu-item" href="{{ route('admin.services.index') }}" data-i18n="nav.dash.ecommerce">عرض الكل
+                        </a>
+                    </li>
+                    <li><a class="menu-item" href="{{ route('admin.services.create') }}" data-i18n="nav.dash.ecommerce">
+                            اضافة خدمة</a>
+                    </li>
+                </ul>
+            </li>
+
 
             <li class="nav-item">
                 <a href=""><i class="la la-life-bouy"></i>
@@ -215,9 +231,27 @@
                     <li><a class="menu-item" href="{{ route('admin.products.create') }}" data-i18n="nav.dash.ecommerce">
                             اضافة منتج</a>
                     </li>
+                    <li><a class="menu-item" href="{{ route('admin.products.reviews') }}" data-i18n="nav.dash.ecommerce">
+                            تقيمات المنتجات</a>
+                    </li>
                 </ul>
             </li>
 
+            <li class="nav-item">
+                <a href=""><i class="la la-life-bouy"></i>
+                    <span class="menu-title" data-i18n="nav.dash.main"> الباقات </span>
+                    <span
+                        class="badge badge badge-primary  badge-pill float-right mr-2">{{ App\Models\Package::count() }}</span>
+                </a>
+                <ul class="menu-content">
+                    <li><a class="menu-item" href="{{ route('admin.packages.index') }}" data-i18n="nav.dash.ecommerce">عرض
+                            الكل </a>
+                    </li>
+                    <li><a class="menu-item" href="{{ route('admin.packages.create') }}"
+                            data-i18n="nav.dash.ecommerce"> اضافة باقة</a>
+                    </li>
+                </ul>
+            </li>
             <li class="nav-item">
                 <a href=""><i class="la la-life-bouy"></i>
                     <span class="menu-title" data-i18n="nav.dash.main"> العروض </span>

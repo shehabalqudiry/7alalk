@@ -31,8 +31,11 @@ class FaqConroller extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'question'     => 'required',
-            'answer'     => 'required',
+            'question'      => 'required',
+            'answer'        => 'required',
+            'is_best'       => 'required|unique:faqs,is_best',
+        ], [
+            'is_best.unique' => 'يوجد سؤال اخر كأفضل سؤال',
         ]);
 
         if ($validator->fails()) {
@@ -45,6 +48,7 @@ class FaqConroller extends Controller
         Faq::create([
             'question'   => $request->question,
             'answer'     => $request->answer,
+            'is_best'    => $request->is_best,
         ]);
 
         notify()->success('تم اضافة بنجاح');
@@ -60,8 +64,9 @@ class FaqConroller extends Controller
     public function update(Request $request , $id)
     {
         $validator = Validator::make($request->all(), [
-            'question'     => 'required',
-            'answer'     => 'required',
+            'question'      => 'required',
+            'answer'        => 'required',
+            'is_best'       => 'required|unique:faqs,is_best',
         ]);
 
         if ($validator->fails()) {
@@ -74,6 +79,7 @@ class FaqConroller extends Controller
         Faq::where('id', $id)->update([
             'question'   => $request->question,
             'answer'     => $request->answer,
+            'is_best'    => $request->is_best,
         ]);
 
         notify()->success('تم تحديث بيانات بنجاح');

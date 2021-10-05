@@ -24,7 +24,8 @@ class ClinicCatController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name'  => 'required',
+            'name_ar'  => 'required',
+            'name_en'  => 'required',
         ]);
 
         
@@ -35,7 +36,7 @@ class ClinicCatController extends Controller
                         ->withInput();
         }
         ClinicCat::create([
-            'name' => $request->name,
+            'name' => ['ar' => $request->name_ar, 'en' => $request->name_en],
         ]);
         notify()->success('تم اضافة التخصص بنجاح');
         return redirect()->route('admin.clinic_cats.index')->with(["success","تم اضافة التخصص بنجاح"]);
@@ -52,7 +53,8 @@ class ClinicCatController extends Controller
         $clinicCat = ClinicCat::find($id);
 
         $validator = Validator::make($request->all(), [
-            'name'  => 'required',
+            'name_ar'  => 'required',
+            'name_en'  => 'required',
         ]);
         
         if ($validator->fails()) {
@@ -63,7 +65,7 @@ class ClinicCatController extends Controller
         }
 
         $clinicCat->update([
-            'name'  => $request->name,
+            'name'  => ['ar' => $request->name_ar, 'en' => $request->name_en],
         ]);
         notify()->success('تم تعديل التخصص بنجاح');
         return redirect()->route('admin.clinic_cats.index');

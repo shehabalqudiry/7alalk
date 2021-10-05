@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title',"اضافة " . $type==1 ? "انواع الحالات الطارئة" : "انواع التحاليل")
+@section('title',"اضافة خدمة")
 @section('content')
 
     <div class="app-content content">
@@ -9,12 +9,12 @@
                     <div class="row breadcrumbs-top">
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">الرئيسية </a>
-                                </li>
-                            <li class="breadcrumb-item"><a href="{{route('admin.cases.index', $type)}}"> @if($type==1)انواع الحالات الطارئة @else انواع التحاليل@endif </a>
-                                </li>
-                                <li class="breadcrumb-item active">اضافة @if($type==1)انواع الحالات الطارئة @else انواع التحاليل@endif
-                                </li>
+                            <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Home </a>
+                            </li>
+                            <li class="breadcrumb-item"><a href="{{route('admin.services.index')}}"> الخدمات </a>
+                            </li>
+                            <li class="breadcrumb-item active">اضافة خدمة
+                            </li>
                             </ol>
                         </div>
                     </div>
@@ -27,7 +27,7 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title" id="basic-layout-form"> اضافة @if($type==1)انواع الحالات الطارئة @else انواع التحاليل@endif</h4>
+                                    <h4 class="card-title" id="basic-layout-form">  اضافة خدمة </h4>
                                     <a class="heading-elements-toggle"><i
                                             class="la la-ellipsis-v font-medium-3"></i></a>
                                     <div class="heading-elements">
@@ -43,18 +43,39 @@
                                 @include('admin.includes.alerts.errors')
                                 <div class="card-content collapse show">
                                     <div class="card-body">
-                                        <form class="form" action="{{route('admin.cases.store')}}"
+                                        <form class="form" action="{{route('admin.services.store')}}"
                                             method="POST"
                                             enctype="multipart/form-data">
                                             @csrf
-                                            <input name="type" type="hidden" value="{{$type}}">
+                                            <div class="form-group">
+                                                <label> صورة الخدمة </label>
+                                                <label id="projectinput7" class="file center-block">
+                                                    <input type="file" id="file" name="image" />
+                                                    <span class="file-custom"></span>
+                                                </label>
+                                                @error('image')
+                                                <span class="text-danger">{{$message}}</span>
+                                                @enderror
+                                            </div>
                                             <div class="form-body">
-
-                                                <h4 class="form-section"><i class="ft-home"></i> بيانات @if($type==1)انواع الحالات الطارئة @else انواع التحاليل@endif </h4>
+                                                <h4 class="form-section"><i class="ft-home"></i> بيانات اضافة خدمة </h4>
                                                         <div class="row">
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label for="projectinput1"> الاسم</label>
+                                                                    <label for="projectinput1"> القسم التابع له الخدمة </label>
+                                                                    <select name="cat_id" class="form-control" id="">
+                                                                        @foreach ($cats as $cat)
+                                                                            <option value="{{$cat->id}}">{{$cat->name}}</option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                    @error("cat_id")
+                                                                    <span class="text-danger">{{$message}}</span>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="projectinput1"> الاسم </label>
                                                                     <input type="text" value="" id="name_ar"
                                                                         class="form-control"
                                                                         placeholder="  "
@@ -66,13 +87,33 @@
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label for="projectinput1"> الاسم بالانجليزية</label>
+                                                                    <label for="projectinput1"> الاسم بالانجليزية </label>
                                                                     <input type="text" value="" id="name_en"
                                                                         class="form-control"
                                                                         placeholder="  "
                                                                         name="name_en">
                                                                     @error("name_en")
                                                                 <span class="text-danger">{{$message}}</span>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="projectinput1"> شرح الخدمة </label>
+                                                                    <textarea name="desc_ar" class="form-control" rows="3"
+                                                                        cols="5"></textarea>
+                                                                    @error("desc_ar")
+                                                                    <span class="text-danger">{{$message}}</span>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="projectinput1">  شرح الخدمة بالانجليزية  </label>
+                                                                    <textarea name="desc_en" class="form-control" rows="3"
+                                                                        cols="5"></textarea>
+                                                                    @error("desc_en")
+                                                                    <span class="text-danger">{{$message}}</span>
                                                                     @enderror
                                                                 </div>
                                                             </div>

@@ -55,12 +55,25 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="projectinput1"> الاسم</label>
-                                                            <input type="text" id="name"
+                                                            <input type="text" id="name_ar"
                                                                 class="form-control"
                                                                 placeholder="  "
-                                                                value="{{$clinicCat->name}}"
-                                                                name="name">
-                                                            @error("name")
+                                                                value="{{$clinicCat->getTranslation('name', 'ar')}}"
+                                                                name="name_ar">
+                                                            @error("name_ar")
+                                                        <span class="text-danger">{{$message}}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="projectinput1"> الاسم بالانجليزية</label>
+                                                            <input type="text" id="name_en"
+                                                                class="form-control"
+                                                                placeholder="  "
+                                                                value="{{$clinicCat->getTranslation('name', 'en')}}"
+                                                                name="name_en">
+                                                            @error("name_en")
                                                         <span class="text-danger">{{$message}}</span>
                                                             @enderror
                                                         </div>

@@ -120,6 +120,9 @@ Route::post('/Add-Bank', 'DashboardController@addbank')->name('admin.add.bank');
         Route::get('edit/{id}','ProductController@edit') -> name('admin.products.edit');
         Route::post('update/{id}','ProductController@update') -> name('admin.products.update');
         Route::get('delete/{id}','ProductController@destroy') -> name('admin.products.delete');
+
+        Route::get('deleteReview/{id}', 'ProductController@deleteReview') -> name('admin.products.deleteReview');
+        Route::get('reviews', 'ProductController@reviews') -> name('admin.products.reviews');
        // Route::get('changeStatus/{id}','ProductController@changeStatus') -> name('admin.products.status');
 
     });
@@ -139,11 +142,17 @@ Route::post('/Add-Bank', 'DashboardController@addbank')->name('admin.add.bank');
         Route::resource('clinic_cats', 'ClinicCatController');
         Route::resource('clinics', 'ClinicController');
         Route::resource('offers', 'OfferController');
-        Route::get('cases/{type}', 'CaseController@index')->name('cases.index');
-        Route::get('cases/create', 'CaseController@index')->name('cases.create');
-        Route::get('cases/edit/{id}', 'CaseController@index')->name('cases.edit');
-        Route::get('cases/update/{id}', 'CaseController@index')->name('cases.update');
-        Route::get('cases/delete/{id}', 'CaseController@index')->name('cases.destroy');
+        // Cases
+        Route::name('cases.')->prefix('cases')->group(function(){
+            Route::get('{type}', 'CaseController@index')->name('index');
+            Route::get('create/{type}', 'CaseController@create')->name('create');
+            Route::post('store', 'CaseController@store')->name('store');
+            Route::get('edit/{type}/{id}', 'CaseController@edit')->name('edit');
+            Route::post('update/{type}/{id}', 'CaseController@update')->name('update');
+            Route::get('delete/{type}/{id}', 'CaseController@destroy')->name('destroy');
+        });
+        Route::resource('services', 'ServiceController');
+        Route::resource('packages', 'PackageController');
     });
 
 });

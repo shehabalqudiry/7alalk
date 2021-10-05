@@ -15,6 +15,9 @@ use App\Models\Region;
 use App\Models\Countery;
 use App\Models\Faq;
 use App\Models\Subcat;
+// Resources
+use App\Http\Resources\ApiResource;
+
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -58,68 +61,78 @@ class ApiController extends Controller
 
     public function regions()
     {
-        $regions = Region::get();
+        $regions = ApiResource::collection(Region::all());
         return $this->returnData('regions', $regions, 'تمت العملية بنجاح');
     }
 
     public function Countries()
     {
-        $Countries = Countery::get();
+        $Countries = ApiResource::collection(Countery::all());
         return $this->returnData('Countries', $Countries, 'تمت العملية بنجاح');
     }
 
     public function animals()
     {
-        $animals = Animal::get();
+        $animals = ApiResource::collection(Animal::get());
         return $this->returnData('animals', $animals, 'تمت العملية بنجاح');
     }
 
     public function cats()
     {
-        $cats = Cat::get();
+        $cats = ApiResource::collection(Cat::get());
         return $this->returnData('cats', $cats, 'تمت العملية بنجاح');
     }
 
     public function subcats($id)
     {
-        $subcats = Subcat::where('cat_id', $id)->get();
+        $subcats = ApiResource::collection(Subcat::where('cat_id', $id)->get());
         return $this->returnData('subcats', $subcats, 'تمت العملية بنجاح');
     }
 
     public function faqs()
     {
-        $faqs = Faq::get();
+        $faqs = ApiResource::collection(Faq::get());
         return $this->returnData('faqs', $faqs, 'تمت العملية بنجاح');
     }
 
     public function clinic_cats()
     {
-        $clinic_cats = ClinicCat::get();
+        $clinic_cats = ApiResource::collection(ClinicCat::get());
         return $this->returnData('clinic_cats', $clinic_cats, 'تمت العملية بنجاح');
     }
 
     public function getCatClinics($cat_id)
     {
-        $CatClinics = Clinic::where('clinic_cat_id', $cat_id)->get();
+        $CatClinics = ApiResource::collection(Clinic::where('clinic_cat_id', $cat_id)->get());
         return $this->returnData('clinic_cats', $CatClinics, 'تمت العملية بنجاح');
     }
 
     public function getRegionClinics($region_id)
     {
-        $CatClinics = Clinic::where('region_id', $region_id)->get();
+        $CatClinics = ApiResource::collection(Clinic::where('region_id', $region_id)->get());
         return $this->returnData('clinic_cats', $CatClinics, 'تمت العملية بنجاح');
     }
 
     public function clinics()
     {
-        $clinics = Clinic::get();
+        $clinics = ApiResource::collection(Clinic::get());
         return $this->returnData('clinics', $clinics, 'تمت العملية بنجاح');
     }
 
     public function clinic($id)
     {
-        $clinic = Clinic::find($id);
+        $clinic = ApiResource::collection(Clinic::find($id));
         return $this->returnData('clinic', $clinic, 'تمت العملية بنجاح');
+    }
+    public function clinicbyregion($region_id)
+    {
+        $clinics= ApiResource::collection(Clinic::where('region_id', $region_id)->get());
+        return $this->returnData('clinics', $clinics, 'تمت العملية بنجاح');
+    }
+    public function clinicbycategory($cat_id)
+    {
+        $clinics = ApiResource::collection(Clinic::where('clinic_cat_id', $cat_id)->get());
+        return $this->returnData('clinics', $clinics, 'تمت العملية بنجاح');
     }
     
     public function langs()

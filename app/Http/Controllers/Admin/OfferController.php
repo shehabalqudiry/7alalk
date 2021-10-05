@@ -7,11 +7,12 @@ use App\Models\Offer;
 use App\Models\Product;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class OfferController extends Controller
 {
-
+    
     public function index()
     {
         $offers = Offer::paginate(PAGINATION_COUNT);

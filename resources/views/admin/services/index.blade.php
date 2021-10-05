@@ -1,17 +1,17 @@
 @extends('layouts.admin')
-@section('title', $type==1 ? "انواع الحالات الطارئة" : "انواع التحاليل")
+@section('title',"الخدمات")
 @section('content')
     <div class="app-content content">
         <div class="content-wrapper">
             <div class="content-header row">
                 <div class="content-header-left col-md-6 col-12 mb-2">
-                    <h3 class="content-header-title">  @if($type==1)انواع الحالات الطارئة @else انواع التحاليل@endif </h3>
+                    <h3 class="content-header-title">  الخدمات </h3>
                     <div class="row breadcrumbs-top">
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">الرئيسية</a>
+                                <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">الصفحة الرئيسية</a>
                                 </li>
-                                <li class="breadcrumb-item active"> @if($type==1)انواع الحالات الطارئة @else انواع التحاليل@endif
+                                <li class="breadcrumb-item active"> الخدمات
                                 </li>
                             </ol>
                         </div>
@@ -25,7 +25,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">@if($type==1)انواع الحالات الطارئة @else انواع التحاليل@endif</h4>
+                                    <h4 class="card-title">الخدمات</h4>
                                     <a class="heading-elements-toggle"><i
                                             class="la la-ellipsis-v font-medium-3"></i></a>
                                     <div class="heading-elements">
@@ -44,26 +44,28 @@
                                 <div class="card-content collapse show">
                                     <div class="card-body card-dashboard">
                                         <table
-                                            class="table display nowrap table-striped table-bordered scroll-horizontal">{{--scroll-horizontal--}}
+                                            class="table display nowrap table-striped table-bordered">{{--scroll-horizontal--}}
                                             <thead class="">
                                             <tr>
                                                 <th>الاسم </th>
+                                                <th>التصنيف </th>
                                                 <th>الإجراءات</th>
                                             </tr>
                                             </thead>
                                             <tbody>
 
-                                            @isset($cases )
-                                                @foreach($cases as $case)
+                                            @isset($services )
+                                                @foreach($services  as $service )
                                                     <tr>
-                                                        <td>{{$case->name}}</td>
+                                                        <td>{{$service->name}}</td>
+                                                        <td>{{\App\Models\SubCat::where('id', $service->cat_id)->first()->name ?? ''}}</td>
                                                         <td>
-                                                            <div class="btn-group" role="group" aria-label="Basic example">
-                                                                <a href="{{route('admin.cases.edit',['type'=>$type, 'id'=>$case->id])}}"
-                                                                    class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1">تعديل</a>
-
-                                                                <a href="{{route('admin.cases.destroy',['type'=>$type, 'id'=>$case->id])}}"
-                                                                    class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1">حذف</a>
+                                                            <div class="btn-group" role="group"
+                                                                aria-label="Basic example">
+                                                            <a href="{{route('admin.services.edit',$service->id)}}"
+                                                                class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1">تعديل</a>
+                                                            <a href="{{route('admin.services.destroy',$service->id)}}"
+                                                                class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1">حذف</a>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -74,7 +76,7 @@
                                             </tbody>
                                         </table>
                                         <div class="justify-content-center d-flex">
-                                            {{  $cases -> links() }}
+                                            {{  $services -> links() }}
                                         </div>
                                     </div>
                                 </div>
