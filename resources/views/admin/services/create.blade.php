@@ -50,10 +50,10 @@
                                             <div class="form-group">
                                                 <label> صورة الخدمة </label>
                                                 <label id="projectinput7" class="file center-block">
-                                                    <input type="file" id="file" name="image" />
+                                                    <input type="file" id="file" name="photo" />
                                                     <span class="file-custom"></span>
                                                 </label>
-                                                @error('image')
+                                                @error('photo')
                                                 <span class="text-danger">{{$message}}</span>
                                                 @enderror
                                             </div>
@@ -62,11 +62,21 @@
                                                         <div class="row">
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label for="projectinput1"> القسم التابع له الخدمة </label>
-                                                                    <select name="cat_id" class="form-control" id="">
+                                                                    <label for="projectinput1"> القسم الرئيسي التابعه له الخدمة </label>
+                                                                    <select name="cat_id" class="form-control maincat" id="">
                                                                         @foreach ($cats as $cat)
                                                                             <option value="{{$cat->id}}">{{$cat->name}}</option>
                                                                         @endforeach
+                                                                    </select>
+                                                                    @error("cat_id")
+                                                                    <span class="text-danger">{{$message}}</span>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="projectinput1"> القسم الفرعي التابعة له الخدمة </label>
+                                                                    <select name="subcat_id" class="form-control" id="subcat">
                                                                     </select>
                                                                     @error("cat_id")
                                                                     <span class="text-danger">{{$message}}</span>
@@ -141,4 +151,33 @@
         </div>
     </div>
 
+@endsection
+@section('script')
+<script>
+    $(document).ready(function(){
+        $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $(document).on('click','.form-control.maincat', function(e) {
+        e.preventDefault();
+        var cat = $('.form-control.maincat').val();
+    /**Ajax code**/
+    $.ajax({
+        type: "POST",
+        url:"{{route('admin.cats.getsubcat')}}",
+        data:{cat:cat},
+
+        success: function (data) {
+            $('#subcat').empty();
+            $('#subcat').append("<option  value=''>غير تابعة لقسم فرعي</option>");
+            $('#subcat').append(data.data);
+        },
+    });
+        /**Ajax code ends**/
+    });
+});
+</script>
 @endsection

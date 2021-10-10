@@ -48,7 +48,8 @@
                                             <thead class="">
                                             <tr>
                                                 <th>الاسم </th>
-                                                <th>التصنيف </th>
+                                                <th>التصنيف الرئيسي</th>
+                                                <th>التصنيف الفرعي</th>
                                                 <th>الإجراءات</th>
                                             </tr>
                                             </thead>
@@ -58,14 +59,21 @@
                                                 @foreach($services  as $service )
                                                     <tr>
                                                         <td>{{$service->name}}</td>
-                                                        <td>{{\App\Models\SubCat::where('id', $service->cat_id)->first()->name ?? ''}}</td>
+                                                        <td>{{\App\Models\Cat::where('id', $service->cat_id)->first()->name ??  ''}}</td>
+                                                        <td>{{\App\Models\SubCat::where('id', $service->subcat_id)->first()->name ?? 'الخدمة غير تابعة لقسم فرعي'}}</td>
                                                         <td>
                                                             <div class="btn-group" role="group"
                                                                 aria-label="Basic example">
                                                             <a href="{{route('admin.services.edit',$service->id)}}"
                                                                 class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1">تعديل</a>
-                                                            <a href="{{route('admin.services.destroy',$service->id)}}"
-                                                                class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1">حذف</a>
+                                                            <a href="{{route('admin.services.destroy',$service -> id)}}" class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1
+                                                                                                                                                                        mb-1"
+                                                            onclick="event.preventDefault();document.getElementById('delete-service-{{ $service->id }}').submit();">حذف</a>
+                                                            <form action="{{ route('admin.services.destroy', $service->id) }}" method="post" class="d-none"
+                                                                id="delete-service-{{ $service->id }}">
+                                                                @csrf
+                                                                @method('delete')
+                                                            </form>
                                                             </div>
                                                         </td>
                                                     </tr>

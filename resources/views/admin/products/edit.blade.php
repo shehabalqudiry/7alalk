@@ -87,12 +87,25 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="projectinput1"> الاسم</label>
-                                                            <input type="text" id="name"
+                                                            <input type="text" id="name_ar"
                                                                 class="form-control"
                                                                 placeholder="  "
-                                                                value="{{$product -> name}}"
-                                                                name="name">
-                                                            @error("name")
+                                                                value="{{$product->getTranslation('name', 'ar')}}"
+                                                                name="name_ar">
+                                                            @error("name_ar")
+                                                        <span class="text-danger">{{$message}}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="projectinput1"> الاسم بالانجليزية</label>
+                                                            <input type="text" id="name_en"
+                                                                class="form-control"
+                                                                placeholder="  "
+                                                                value="{{$product->getTranslation('name', 'en')}}"
+                                                                name="name_en">
+                                                            @error("name_en")
                                                         <span class="text-danger">{{$message}}</span>
                                                             @enderror
                                                         </div>
@@ -123,7 +136,7 @@
                                                             @enderror
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-4">
+                                                    <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="projectinput1"> الكمية </label>
                                                             <input type="number" value="{{$product->amount}}" id="amount"
@@ -163,11 +176,23 @@
                                                     <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label for="projectinput1">  وصف قصير </label>
-                                                            <input type="text" value="{{$product->short_desc}}" id="short_desc"
+                                                            <input type="text" value="{{$product->getTranslation('short_desc', 'ar')}}" id="short_desc"
                                                                 class="form-control"
                                                                 placeholder="  "
-                                                                name="short_desc">
-                                                            @error("short_desc")
+                                                                name="short_desc_ar">
+                                                            @error("short_desc_ar")
+                                                        <span class="text-danger">{{$message}}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label for="projectinput1">  وصف قصير بالانجليزية </label>
+                                                            <input type="text" value="{{$product->getTranslation('short_desc', 'en')}}" id="short_desc"
+                                                                class="form-control"
+                                                                placeholder="  "
+                                                                name="short_desc_en">
+                                                            @error("short_desc_en")
                                                         <span class="text-danger">{{$message}}</span>
                                                             @enderror
                                                         </div>
@@ -200,8 +225,17 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="projectinput1">  شرح وصف المنتج </label>
-                                                                <textarea name="long_desc" class="form-control" rows="15" cols="20">{{$product->long_desc}}</textarea>
-                                                            @error("long_desc")
+                                                                <textarea name="long_desc_ar" class="form-control" rows="15" cols="20">{{$product->getTranslation('long_desc', 'en')}}</textarea>
+                                                            @error("long_desc_ar")
+                                                        <span class="text-danger">{{$message}}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="projectinput1">  شرح وصف المنتج بالانجليزية </label>
+                                                                <textarea name="long_desc_en" class="form-control" rows="15" cols="20">{{$product->getTranslation('long_desc', 'en')}}</textarea>
+                                                            @error("long_desc_en")
                                                         <span class="text-danger">{{$message}}</span>
                                                             @enderror
                                                         </div>
@@ -209,8 +243,17 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="projectinput1">  شرح كيفية الاستخدام </label>
-                                                                <textarea name="how_used" class="form-control" rows="15" cols="20">{{$product->how_used}}</textarea>
-                                                            @error("how_used")
+                                                                <textarea name="how_used_ar" class="form-control" rows="15" cols="20">{{$product->getTranslation('how_used', 'ar')}}</textarea>
+                                                            @error("how_used_ar")
+                                                        <span class="text-danger">{{$message}}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="projectinput1">  شرح كيفية الاستخدام بالانجليزية</label>
+                                                                <textarea name="how_used_en" class="form-control" rows="15" cols="20">{{$product->getTranslation('how_used', 'en')}}</textarea>
+                                                            @error("how_used_en")
                                                         <span class="text-danger">{{$message}}</span>
                                                             @enderror
                                                         </div>

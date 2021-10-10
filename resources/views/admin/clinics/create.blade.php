@@ -63,12 +63,22 @@
                                         <div class="form-body">
                                             <h4 class="form-section"><i class="ft-home"></i> بيانات العيادة </h4>
                                             <div class="row">
-                                                <div class="col-md-12">
+                                                <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="name"> الاسم </label>
-                                                        <input type="text" value="" id="name" class="form-control"
-                                                            placeholder="  " name="name">
-                                                        @error("name")
+                                                        <input type="text" value="" id="name_ar" class="form-control"
+                                                            placeholder="  " name="name_ar">
+                                                        @error("name_ar")
+                                                        <span class="text-danger">{{$message}}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="name"> الاسم بالانجليزية </label>
+                                                        <input type="text" value="" id="name_en" class="form-control"
+                                                            placeholder="  " name="name_en">
+                                                        @error("name_en")
                                                         <span class="text-danger">{{$message}}</span>
                                                         @enderror
                                                     </div>
@@ -123,20 +133,38 @@
                                                         @enderror
                                                     </div>
                                                 </div>
-                                                <div class="col-md-12">
+                                                <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label for="short_desc"> الوصف المختصر </label>
-                                                        <input type="text" value="" id="short_desc" class="form-control" placeholder="  " name="short_desc">
-                                                        @error("short_desc")
+                                                        <label for="short_desc_ar"> الوصف المختصر </label>
+                                                        <input type="text" value="" id="short_desc_ar" class="form-control" placeholder="  " name="short_desc_ar">
+                                                        @error("short_desc_ar")
+                                                        <span class="text-danger">{{$message}}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="short_desc_en"> الوصف المختصر  بالانجليزية</label>
+                                                        <input type="text" value="" id="short_desc_en" class="form-control" placeholder="  " name="short_desc_en">
+                                                        @error("short_desc_en")
                                                         <span class="text-danger">{{$message}}</span>
                                                         @enderror
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <label for="long_desc"> الوصف كاملا </label>
-                                                        <textarea type="text" value="" id="long_desc" class="form-control" placeholder="  " name="long_desc"></textarea>
-                                                        @error("long_desc")
+                                                        <label for="long_desc_ar"> الوصف كاملا </label>
+                                                        <textarea type="text" value="" id="long_desc_ar" class="form-control" placeholder="  " name="long_desc_ar"></textarea>
+                                                        @error("long_desc_ar")
+                                                        <span class="text-danger">{{$message}}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="long_desc_en"> الوصف كاملا بالانجليزية</label>
+                                                        <textarea type="text" value="" id="long_desc_en" class="form-control" placeholder="  " name="long_desc_en"></textarea>
+                                                        @error("long_desc_en")
                                                         <span class="text-danger">{{$message}}</span>
                                                         @enderror
                                                     </div>

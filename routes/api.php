@@ -49,4 +49,8 @@ Route::group(['namespace' => 'API'], function () {
     Route::get('Clinic/{id}','ApiController@clinic'); // Get All Clinics
     Route::get('Clinic-by-region/{region_id}','ApiController@clinicbyregion'); // Get All Clinics
     Route::get('Clinic-by-category/{cat_id}','ApiController@clinicbycategory'); // Get All Clinics
+    Route::get('Services','ApiController@getServices'); // Get All Services
+    Route::get('Cases','ApiController@getCases'); // Get All Services
+    Route::get('Tests','ApiController@getTests'); // Get All Services
+    Route::get('Packages','ApiController@getPackages'); // Get All Services
 });

@@ -31,9 +31,12 @@ class ClinicController extends Controller
     {
         // dd($request->all());
         $rules = [
-            'name'          => 'required',
-            'short_desc'    => 'required',
-            'long_desc'     => 'required',
+            'name_ar'          => 'required',
+            'name_en'          => 'required',
+            'short_desc_ar'    => 'required',
+            'short_desc_en'    => 'required',
+            'long_desc_ar'     => 'required',
+            'long_desc_en'     => 'required',
             'services'      => 'required',
             'location'      => 'required',
             'map_address'   => 'required',
@@ -51,14 +54,14 @@ class ClinicController extends Controller
         }
 
         $clinic = Clinic::create([
-            'name'          => $request->name,
-            'short_desc'    => $request->short_desc,
-            'long_desc'     => $request->long_desc,
+            'name'          => ['ar' => $request->name_ar, 'en' => $request->name_en],
+            'short_desc'    => ['ar'=>$request->short_desc_ar, 'en'=> $request->short_desc_en],
+            'long_desc'     =>  ['ar'=>$request->long_desc_ar, 'en'=> $request->long_desc_en],
             'services'      => $request->services,
             'location'      => $request->location,
             'map_address'   => $request->map_address,
             'region_id'     => $request->region_id,
-            'clinic_cat_id' => $request->clinic_cat_id,
+            'clinic_cat_id' => $request->subcat_id,
         ]);
 
         $filePath = '';
@@ -75,11 +78,6 @@ class ClinicController extends Controller
         return redirect()->route('admin.clinics.index');
     }
 
-    public function show($id)
-    {
-        //
-    }
-
     public function edit($id)
     {
         $clinic = Clinic::find($id);
@@ -89,13 +87,18 @@ class ClinicController extends Controller
     public function update(Request $request, $id)
     {
         $rules = [
-            'name'          => 'required',
-            'short_desc'    => 'required',
-            'long_desc'     => 'required',
+            'name_ar'          => 'required',
+            'name_en'          => 'required',
+            'short_desc_ar'    => 'required',
+            'short_desc_en'    => 'required',
+            'long_desc_ar'     => 'required',
+            'long_desc_en'     => 'required',
             'services'      => 'required',
-            'address'       => 'required',
+            'location'      => 'required',
+            'map_address'   => 'required',
             'region_id'     => 'required',
             'clinic_cat_id' => 'required',
+            'images.*'      => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
         $validator = Validator::make($request->all(), $rules);
 
@@ -106,10 +109,10 @@ class ClinicController extends Controller
                 ->withInput();
         }
 
-        $clinic = Clinic::create([
-            'name'          => $request->name,
-            'short_desc'    => $request->short_desc,
-            'long_desc'     => $request->long_desc,
+        $clinic = Clinic::where('id', $id)->update([
+            'name'          => ['ar' => $request->name_ar, 'en' => $request->name_en],
+            'short_desc'    => ['ar'=>$request->short_desc_ar, 'en'=> $request->short_desc_en],
+            'long_desc'     =>  ['ar'=>$request->long_desc_ar, 'en'=> $request->long_desc_en],
             'services'      => $request->services,
             'address'       => $request->address,
             'region_id'     => $request->region_id,
@@ -126,12 +129,13 @@ class ClinicController extends Controller
                 $filePath = uploadImage('clinics/' . $request->name . '/', $image);
             }
         }
+        
         notify()->success('تم تعديل بيانات العيادة بنجاح');
         return redirect()->route('admin.clinics.index');
     }
 
     public function destroy($id)
     {
-        Clinic::find($id)->delete();
+        Clinic::findOrFail($id)->delete();
     }
 }

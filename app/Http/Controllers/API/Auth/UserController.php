@@ -273,6 +273,7 @@ class UserController extends Controller
             'animal_id'      => 'required',
             'region_id'      => 'required',
             'service_id'     => 'required',
+            'type'           => 'required',
             'number'         => 'required',
             'time'           => 'required',
             'address'        => 'required',
@@ -326,8 +327,16 @@ class UserController extends Controller
 
     public function getOffers() // Remove From Favirote
     {
-        $offers = auth()->user()->offers()->get();
+        $offers = ApiResource::collection(auth()->user()->offers()->get());
         return $this->returnData('offers', $offers, 'تمت العملية بنجاح');
     }
 
+    // Reviews
+    public function reviews($product_id)
+    {
+        $reviews = ApiResource::collection(Review::where('product_id', $product_id)->get());
+        return $this->returnData('reviews', $reviews, 'تمت العملية بنجاح');
+    }
+
+    
 }

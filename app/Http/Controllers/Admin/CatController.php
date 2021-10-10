@@ -42,8 +42,8 @@ class CatController extends Controller
             'type'     => $request->type,
         ]);
 
-        notify()->success('تم اضافة حيوان بنجاح');
-        return redirect()->route('admin.cats')->with(["success","تم اضافة حيوان بنجاح"]);
+        notify()->success('تم اضافة البيانات بنجاح');
+        return redirect()->route('admin.cats')->with(["success","تم اضافة البيانات بنجاح"]);
     }
 
     public function edit($id)

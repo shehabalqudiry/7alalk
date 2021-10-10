@@ -15,6 +15,9 @@ use App\Models\Region;
 use App\Models\Countery;
 use App\Models\Faq;
 use App\Models\Subcat;
+use App\Models\Service;
+use App\Models\CaseModel;
+use App\Models\Package;
 // Resources
 use App\Http\Resources\ApiResource;
 
@@ -32,7 +35,7 @@ class ApiController extends Controller
         try {
             $rules = [
                 "email"     => "required",
-                "password" => "required"
+                "password" => "required",
 
             ];
 
@@ -67,7 +70,7 @@ class ApiController extends Controller
 
     public function Countries()
     {
-        $Countries = ApiResource::collection(Countery::all());
+        $Countries = ApiResource::collection(Countery::get());
         return $this->returnData('Countries', $Countries, 'تمت العملية بنجاح');
     }
 
@@ -133,6 +136,26 @@ class ApiController extends Controller
     {
         $clinics = ApiResource::collection(Clinic::where('clinic_cat_id', $cat_id)->get());
         return $this->returnData('clinics', $clinics, 'تمت العملية بنجاح');
+    }
+    public function getServices()
+    {
+        $services = ApiResource::collection(Service::get());
+        return $this->returnData('services', $services, 'تمت العملية بنجاح');
+    }
+    public function getCases()
+    {
+        $cases = ApiResource::collection(CaseModel::where('type', 1)->get());
+        return $this->returnData('cases', $cases, 'تمت العملية بنجاح');
+    }
+    public function getTests()
+    {
+        $tests = ApiResource::collection(CaseModel::where('type', 2)->get());
+        return $this->returnData('tests', $tests, 'تمت العملية بنجاح');
+    }
+    public function getPackages()
+    {
+        $packages = ApiResource::collection(Package::get());
+        return $this->returnData('packages', $packages, 'تمت العملية بنجاح');
     }
     
     public function langs()

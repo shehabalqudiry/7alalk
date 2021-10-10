@@ -42,16 +42,17 @@
                             @include('admin.includes.alerts.errors')
                             <div class="card-content collapse show">
                                 <div class="card-body">
-                                    <form class="form" action="{{route('admin.services.store')}}" method="POST"
+                                    <form class="form" action="{{route('admin.services.update', $service->id)}}" method="POST"
                                         enctype="multipart/form-data">
                                         @csrf
+                                        @method('put')
                                         <div class="form-group">
                                             <label> صورة الخدمة </label>
                                             <label id="projectinput7" class="file center-block">
-                                                <input type="file" id="file" name="image" />
+                                                <input type="file" id="file" name="photo" />
                                                 <span class="file-custom"></span>
                                             </label>
-                                            @error('image')
+                                            @error('photo')
                                             <span class="text-danger">{{$message}}</span>
                                             @enderror
                                         </div>

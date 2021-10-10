@@ -41,23 +41,23 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'name_ar'        => 'required',
-            'name_en'        => 'required',
-            'short_desc_ar'  => 'required',
-            'short_desc_en'  => 'required',
-            'long_desc_ar'   => 'required',
-            'long_desc_en'   => 'required',
-            'how_used_ar'    => 'required',
-            'how_used_en'    => 'required',
-            'cat_id'        => 'required',
-            'subcat_id'     => 'required',
-            'amount'        => 'required',
-            'type'          => 'required',
-            'price'         => 'required',
-            'offer'         => 'required',
-            'end_date'      => 'required|date',
-            'photos'        => 'required',
-            'photos.*'      => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'name_ar'       => 'required',
+            'name_en'       => 'required',
+            'cat_id'     => 'required',
+            'subcat_id'  => 'required',
+            'amount'     => 'required',
+            'type'       => 'required',
+            'price'      => 'required',
+            'offer'      => 'required',
+            'short_desc_ar' => 'required',
+            'short_desc_en' => 'required',
+            'long_desc_ar'  => 'required',
+            'long_desc_en'  => 'required',
+            'how_used_ar'   => 'required',
+            'how_used_en'   => 'required',
+            'end_date'   => 'required|date',
+            'photos'     => 'required_without:id',
+            'photos.*'   => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
         $validator = Validator::make($request->all(), $rules);
 
@@ -76,7 +76,7 @@ class ProductController extends Controller
         }
 
         Product::create([
-            'name'     => $request->name,
+            'name'     => ['ar' => $request->name_ar, 'en' => $request->name_en],
             'photos'   => implode(',', $data),
             'cat_id'     => $request->cat_id,
             'subcat_id'  => $request->subcat_id,
@@ -85,9 +85,9 @@ class ProductController extends Controller
             'price'      => $request->price,
             'price_delevery_free'   =>   $request->price_delevery_free,
             'offer'      => $request->offer,
-            'short_desc' => $request->short_desc,
-            'long_desc'  => $request->long_desc,
-            'how_used'   => $request->how_used,
+            'short_desc' => ['ar' => $request->short_desc_ar, 'en' => $request->short_desc_en],
+            'long_desc'  => ['ar' => $request->long_desc_ar, 'en' => $request->long_desc_en],
+            'how_used'   => ['ar' => $request->how_used_ar, 'en' => $request->how_used_en],
             'end_date'   => $request->end_date,
             'status'      => 1
         ]);
@@ -101,22 +101,26 @@ class ProductController extends Controller
         $product = Product::find($id);
         $cats    = Cat::get();
         $subcat  = Subcat::where('cat_id', $product->cat_id)->first();
-        return view('admin.products.edit', compact(['countery', 'cats', 'subcat']));
+        return view('admin.products.edit', compact(['product', 'cats', 'subcat']));
     }
 
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'name'       => 'required',
+            'name_ar'       => 'required',
+            'name_en'       => 'required',
             'cat_id'     => 'required',
             'subcat_id'  => 'required',
             'amount'     => 'required',
             'type'       => 'required',
             'price'      => 'required',
             'offer'      => 'required',
-            'short_desc' => 'required',
-            'long_desc'  => 'required',
-            'how_used'   => 'required',
+            'short_desc_ar' => 'required',
+            'short_desc_en' => 'required',
+            'long_desc_ar'  => 'required',
+            'long_desc_en'  => 'required',
+            'how_used_ar'   => 'required',
+            'how_used_en'   => 'required',
             'end_date'   => 'required|date',
             'photos'     => 'required_without:id',
             'photos.*'   => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -140,7 +144,7 @@ class ProductController extends Controller
         }
 
         Product::where('id', $id)->update([
-            'name'     => $request->name,
+            'name'     => ['ar' => $request->name_ar, 'en' => $request->name_en],
             'cat_id'     => $request->cat_id,
             'subcat_id'  => $request->subcat_id,
             'amount'     => $request->amount,
@@ -148,13 +152,20 @@ class ProductController extends Controller
             'price'      => $request->price,
             'price_delevery_free'   =>   $request->price_delevery_free,
             'offer'      => $request->offer,
-            'short_desc' => $request->short_desc,
-            'long_desc'  => $request->long_desc,
-            'how_used'   => $request->how_used,
+            'short_desc' => ['ar' => $request->short_desc_ar, 'en' => $request->short_desc_en],
+            'long_desc'  => ['ar' => $request->long_desc_ar, 'en' => $request->long_desc_en],
+            'how_used'   => ['ar' => $request->how_used_ar, 'en' => $request->how_used_en],
             'end_date'   => $request->end_date,
         ]);
 
-        notify()->success('تم تحديث بيانات الدولة بنجاح');
-        return redirect()->route('admin.counteries')->with(["success", "تم تحديث بيانات الدولة بنجاح"]);
+        notify()->success('تم تحديث بيانات المنتج بنجاح');
+        return redirect()->route('admin.products')->with(["success", "تم تحديث بيانات المنتج بنجاح"]);
+    }
+
+    public function destroy($id)
+    {
+        Product::findOrFail($id)->delete();
+        notify()->success('تم حذف المنتج بنجاح');
+        return redirect()->route('admin.products')->with(["success", "تم حذف المنتج بنجاح"]);
     }
 }
